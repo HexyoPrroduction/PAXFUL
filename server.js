@@ -1,9 +1,15 @@
 const express = require('express');
+const path = require('path'); // Import path module
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-app.use(express.static(__dirname + '/public')); // Serve static files
+app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
+
+// Set default file when visiting the site (index.html)
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "PAX.html"));
+});
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
