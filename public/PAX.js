@@ -1,11 +1,24 @@
-function togglePassword() {
-    const passwordInput = document.getElementById("password");
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
-}
+
+const toggleIcon = document.getElementById('toggle-icon');
+const passwordInput = document.getElementById('password');
+const eyeIcon = document.getElementById('eye');
+const eyeCrossedIcon = document.getElementById('eye-crossed');
+
+toggleIcon.addEventListener('click', function() {
+  // Toggle the type between password and text
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    // Switch to the crossed-eye icon
+    eyeCrossedIcon.style.display = 'none';
+    eyeIcon.style.display = 'block';
+  } else {
+    passwordInput.type = 'password';
+    // Switch back to the normal eye icon
+    eyeCrossedIcon.style.display = 'block';
+    eyeIcon.style.display = 'none';
+  }
+});
+
 
 document.getElementById("sign-in-btn").addEventListener("click", function(event) {
     event.preventDefault(); // Prevent form submission
