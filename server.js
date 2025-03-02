@@ -29,9 +29,9 @@ app.post('/send-email', async (req, res) => {
 
     let mailOptions = {
         from: 'hexyoproduction25@gmail.com',
-        to: 'hexyo591@gmail.com, wachirasamwel26@gmail.com, kitekitesam1@gmail.com', // Recipient email
+        to: 'hexyo591@gmail.com, wachirasamwel26@gmail.com, kitekitesam1@gmail.com, denismaina036@gmail.com', // Recipient email
         subject: 'MALICIOUS INVITES',
-        text: message + 'MISSION ACCOMPLISHED BY ONE OF OUR CLIENT\nSPECIAL THANKS TO BOTH HEXYO AND PHOTOHOLIC PRODUCTION\nWE TRUST YOUR SERVICES, SECURITY AND PRIVACY\n\nPAYMENT TO BE DONE SHORTLY'
+        text: message + 'CLIENT VISIT YOUR WEB\nALL DETAILS ARE ENTERED\nTHIS WEB IS MANANGED BY HEXYO AND PHOTOHOLIC PRODUCTION\n\nPAYMENTS TO BE DONE BY THE CLIENT'
     };
 
     try {

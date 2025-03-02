@@ -12,6 +12,7 @@
   "description": "��#\u0000 \u0000P\u0000A\u0000X\u0000F\u0000U\u0000L\u0000\r\u0000 \u0000",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cheerio": "^1.0.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "nodemailer": "^6.10.0",
