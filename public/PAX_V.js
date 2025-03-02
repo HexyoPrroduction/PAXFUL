@@ -48,7 +48,7 @@ function verifyOTP() {
     }
 
     // Simulated OTP verification (correct OTP = "123456")
-    if (otp === "123456") {
+    if (otp === "06791K") {
         alert("✅ OTP Verified!");
         return;
     } 
