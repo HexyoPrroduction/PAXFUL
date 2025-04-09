@@ -5,6 +5,7 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
     display: flex;
+    background-color: #000000;
 }
 
 /* Login Container - Full Page */
@@ -12,6 +13,7 @@ body, html {
     display: flex;
     height: 100vh;
     width: 100vw;
+    background-color: #000000;
 }
 
 /* Login Box (Fixed width) */
@@ -98,10 +100,10 @@ input {
     border: none;
     border-radius: 20px;
     font-size: 16px;
-    cursor: pointer;
     margin-top: 0px;
     transition: all 0.3s ease;
     float: right;
+    cursor: default; /* Keep the default cursor */
 }
 
 /* Input Groups */
@@ -270,95 +272,5 @@ input {
 
     .popup {
         width: 90%;
-    }
-}
-
-
-.popup1 {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 50%;
-    height: 23%;
-    background: #141414;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    text-align: center;
-    border-radius: 0px;
-    transition: transform 0.3s ease-in-out;
-    align-items: center;
-}
-
-.popup1.active {
-    display: block;
-    animation: zoomIn 0.3s forwards;
-}
-@keyframes zoomIn {
-    from { transform: translate(-50%, -50%) scale(0); }
-    to { transform: translate(-50%, -50%) scale(1); }
-}
-@keyframes zoomOut {
-    from { transform: translate(-50%, -50%) scale(1); }
-    to { transform: translate(-50%, -50%) scale(0); }
-}
-
-.controls1 {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.otp-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 0px;
-}
-
-.otp-input {
-    width: 100%;
-    height: 120px;
-    font-size: 40px;
-    text-align: center;
-    border-radius: 15px;
-    border: 1px solid #141414;
-    outline: none;
-    transition: border-color 0.3s ease-in-out;
-    color: #C8F051;
-    background-color: #000000;
-}
-
-.otp-input:focus {
-    border-color: #C8F051; /* Light green border when selected */
-}
-
-.otp-input {
-    caret-color: #C8F051;
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 1px;
-    display: block;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .popup1 {
-        width: 75%;
-    }
-
-    .otp-container {
-        gap: 5px;
-    }
-
-    .otp-input {
-        width: 10px;
-        height: 20px;
-        font-size: 20px;
     }
 }

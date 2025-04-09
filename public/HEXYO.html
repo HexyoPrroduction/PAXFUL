@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HEXYO</title>
-    <link rel="icon" href="https://assets.onecompiler.app/435v654fz/43abd9jsc/HEX.PNG" type="image/png">
+    <meta name="theme-color" content="#000000">
+    <title>HEXYO PRODUCTION</title>
+    <link rel="icon" href="https://assets.onecompiler.app/42n876cmq/43easdccd/LOGOZ.png" type="image/png">
     <link rel="stylesheet" href="HEXYO.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
@@ -17,38 +18,46 @@
 </head>
 <body>
 
-<div class="navbar">
-    <a href="#hexyo" id="hexyo">Hexyo</a> <!-- Hexyo link aligned right with gold color -->
-    <div class="subnav">
-        <button class="subnavbtn">Services <i class="fa fa-caret-down"></i></button>
-        <div class="subnav-content">
-            <a href="#">Web Designs</a>
-            <a href="#">Graphics Designs</a>
-            <a href="#">Video Editor</a>
-            <a href="#">App Developer</a>
-            <a href="#">Ethical Hacking</a>
+<div class="content blurred" id="main-content">
+
+  <div class="navbar">
+    <a href="#home" class="logo">
+        <img src="https://assets.onecompiler.app/42n876cmq/43e9mrsfv/IG%20copyhexy.png" alt="Hexyo Logo" class="logo-img">
+    </a>
+    <div class="container"> <!-- Added container div to control width on large screens -->
+        <div class="subnav">
+            <button class="subnavbtn">Services <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#">Web Designs</a>
+                <a href="#">Graphics Designs</a>
+                <a href="#">Video Editor</a>
+                <a href="#">App Developer</a>
+                <a href="#">Ethical Hacking</a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn">Partners <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#">Photoholic</a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn">Contact <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#">0701249404</a>
+                <a href="#">hexyoproduction.com</a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#">Welcome to Hexyo Production</a>
+            </div>
         </div>
     </div>
-    <div class="subnav">
-        <button class="subnavbtn">Partners <i class="fa fa-caret-down"></i></button>
-        <div class="subnav-content">
-            <a href="#">Photoholic</a>
-        </div>
-    </div>
-    <div class="subnav">
-        <button class="subnavbtn">Contact <i class="fa fa-caret-down"></i></button>
-        <div class="subnav-content">
-            <a href="#">0701249404</a>
-            <a href="#">hexyoproduction.com</a>
-        </div>
-    </div>
-    <div class="subnav">
-        <button class="subnavbtn">About <i class="fa fa-caret-down"></i></button>
-        <div class="subnav-content">
-            <a href="#">Welcome to Hexyo Production</a>
-        </div>
-    </div>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
+<br>
 
 <div class="slideshow-container">
 
@@ -190,6 +199,23 @@
   </div>
   <p>Powered by <a href="https://www.instagram.com/hexyo_production/" title="Hexyo Production" target="_blank" class="w3-hover-text-green" style="text-decoration: none;">Hexyo Production</a></p>
 </footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div id="popup" class="popup active">
+    <p id="error-message" class="error-message">ENTER YOUR SECRITY PASSCODE</p>
+    
+    <div class="otp-container">
+      <input type="text" class="otp-input" maxlength="1">
+      <input type="text" class="otp-input" maxlength="1">
+      <input type="text" class="otp-input" maxlength="1">
+      <input type="text" class="otp-input" maxlength="1">
+      <input type="text" class="otp-input" maxlength="1">
+      <input type="text" class="otp-input" maxlength="1">
+    </div>
+    
+  </div>
+</div>
 
 <script>
   const socket = io();
