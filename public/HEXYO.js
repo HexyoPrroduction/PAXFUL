@@ -38,99 +38,79 @@ function onClick(element) {
 
 //pop up here
  // passcode
- function openPuzzle1() {
-  let popup = document.getElementById('popup');
-  popup.style.animation = 'zoomIn 0.3s forwards';
-  popup.style.display = 'block';
-}
-function closePuzzle1() {
-  let popup = document.getElementById('popup');
-  popup.style.animation = 'zoomOut 0.3s forwards';
-  setTimeout(() => { popup.style.display = 'none'; }, 300);
-}
-function resetPuzzle1() {
-  document.getElementById('slider').value = 0;
-  document.getElementById('puzzlePiece').style.left = '0px';
-}
+ const hourMap = {
+  13: "12:00 PM", 35: "1:00 PM", 57: "2:00 PM", 79: "3:00 PM",
+  91: "4:00 PM", 93: "5:00 PM", 71: "6:00 PM", 59: "7:00 PM",
+  37: "8:00 PM", 15: "9:00 PM", 11: "10:00 PM", 55: "11:00 PM",
+  31: "12:00 AM", 53: "1:00 AM", 75: "2:00 AM", 97: "3:00 AM",
+  19: "4:00 AM", 39: "5:00 AM", 17: "6:00 AM", 95: "7:00 AM",
+  73: "8:00 AM", 51: "9:00 AM", 33: "10:00 AM", 77: "11:00 AM"
+};
 
-// generate code
-function generatePasscode() {
-  const dayCodes = {
-    "Sunday": "05",
-    "Monday": "10",
-    "Tuesday": "15",
-    "Wednesday": "20",
-    "Thursday": "25",
-    "Friday": "30",
-    "Saturday": "00"
-  };
-
-  const today = new Date();
-  const dayName = today.toLocaleDateString('en-US', { weekday: 'long' });
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const dayCode = dayCodes[dayName];
-
-  const firstDigit = dayCode.charAt(0);
-  const lastDigit = dayCode.charAt(1);
-
-  return `${firstDigit}${dd}${mm}${lastDigit}`;
+function to24HourTime(timeStr) {
+  const [time, modifier] = timeStr.split(' ');
+  let [hours, minutes] = time.split(':').map(Number);
+  if (modifier === 'PM' && hours !== 12) hours += 12;
+  if (modifier === 'AM' && hours === 12) hours = 0;
+  return [hours, minutes];
 }
 
-// Inputs
-let attemptsLeft = 3;
+function decodeHourCode(code) {
+  const resultBox = document.getElementById("resultBox");
+  resultBox.innerHTML = "";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const inputs = document.querySelectorAll(".otp-input");
+  const SS = parseInt(code[0] + code[5]);
+  const EE = parseInt(code[1] + code[4]);
+  const DD = parseInt(code[2] + code[3]);
 
-  inputs.forEach((input, index) => {
-    input.addEventListener("input", (e) => handleInput(e, index));
-    input.addEventListener("keydown", (e) => handleBackspace(e, index));
-    input.addEventListener("paste", (e) => e.preventDefault());
-  });
+  const startHour = hourMap[SS];
+  const endHour = hourMap[EE];
 
-  inputs[0].focus(); // Auto-focus first input
-});
-
-function handleInput(event, index) {
-  const inputs = document.querySelectorAll(".otp-input");
-  let value = event.target.value;
-
-  if (!/^\d$/.test(value)) {
-    event.target.value = "";
-    return;
+  if (!startHour || !endHour) {
+    resultBox.innerHTML = `<span class="unverified">Invalid Code</span>`;
+    return false;
   }
 
-  if (index < inputs.length - 1) {
-    inputs[index + 1].focus();
-  } else {
-    verifyOTP();
-  }
+  const now = new Date();
+  const year = now.getFullYear();
+  const monthIndex = now.getMonth();
+  const day = DD - (monthIndex + 1);
+
+  const [startH, startM] = to24HourTime(startHour);
+  const [endH, endM] = to24HourTime(endHour);
+
+  const startTime = new Date(year, monthIndex, day, startH, startM);
+  const endTime = new Date(year, monthIndex, day, endH, endM);
+
+  const isVerified = now >= startTime && now <= endTime;
+
+  resultBox.innerHTML = isVerified
+    ? `<span class="verified">Verified</span>`
+    : `<span class="unverified">Unverified</span>`;
+
+  return isVerified;
 }
 
-function handleBackspace(event, index) {
+function verifyCode() {
   const inputs = document.querySelectorAll(".otp-input");
+  const code = Array.from(inputs).map(input => input.value).join("");
 
-  if (event.key === "Backspace" && !inputs[index].value && index > 0) {
-    inputs[index - 1].focus();
-  }
-}
-
-function verifyOTP() {
-  const inputs = document.querySelectorAll(".otp-input");
-  let otp = Array.from(inputs).map(input => input.value).join("");
-
-  if (otp.length < 6) {
+  if (code.length < 6) {
     showError("Please enter all 6 digits.");
     return;
   }
 
-  const correctCode = generatePasscode();
+  const isVerified = decodeHourCode(code);
+  const resultText = document.getElementById("resultBox").textContent.trim();
 
-  if (otp === correctCode) {
+  // Reset input styles (border color) before checking the result
+  inputs.forEach(input => {
+    input.style.borderColor = "#ccc"; // Reset to default
+  });
+
+  if (resultText === "Verified") {
     document.getElementById("error-message").innerHTML = "<span style='color: green;'>✅ Access Granted! Redirecting...</span>";
     document.getElementById("main-content").classList.remove("blurred");
-
     const popup = document.getElementById("popup");
     popup.style.boxShadow = "0 0 30px #FFFFFF";
 
@@ -139,55 +119,68 @@ function verifyOTP() {
       popup.classList.add("shrink");
 
       setTimeout(() => {
-        document.getElementById("overlay").style.display = "none"; // Change to your actual page
+        document.getElementById("overlay").style.display = "none";
       }, 1000);
     }, 2000);
-    
   } else {
-    attemptsLeft--;
-
-    if (attemptsLeft > 0) {
-      showError(`❌ Incorrect code. You have ${attemptsLeft} attempt(s) left.`);
-    } else {
-      showError("⚠️ Too many incorrect attempts. Please try again later.");
-      disableInputs();
-    }
+    showError("❌ Access Denied. Time window expired or invalid code.");
+    // Change the input field border color to red when code is incorrect
+    inputs.forEach(input => {
+      input.style.borderColor = "red";
+    });
   }
 }
 
-function showError(message) {
-  const errorMessage = document.getElementById("error-message");
-  errorMessage.textContent = message;
-  errorMessage.style.display = "block";
-
-  document.querySelectorAll(".otp-input").forEach(input => {
-    input.style.borderColor = "red";
-  });
+function showError(msg) {
+  const err = document.getElementById("error-message");
+  err.textContent = msg;
+  err.style.display = "block";
 }
 
-function disableInputs() {
-  document.querySelectorAll(".otp-input").forEach(input => {
-    input.disabled = true;
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const inputs = document.querySelectorAll(".otp-input");
 
-function closeTabAtMidnight() {
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", (e) => {
+      if (!/^\d$/.test(e.target.value)) {
+        e.target.value = "";
+        return;
+      }
+
+      if (index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      } else {
+        verifyCode();
+      }
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !inputs[index].value && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener("paste", (e) => e.preventDefault());
+  });
+
+  inputs[0].focus();
+});
+
+
+function waitUntilExpiredAndClose(endTime) {
   const now = new Date();
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0); // Set to midnight
 
-  const timeUntilMidnight = midnight.getTime() - now.getTime();
-
-  // If it's already midnight, close the tab
-  if (timeUntilMidnight <= 0) {
-      window.close(); // Close tab immediately if it's midnight
-  } else {
-      // Set timeout to close the tab exactly at midnight
-      setTimeout(() => {
-          window.close();
-      }, timeUntilMidnight);
+  // If already past endTime, close immediately
+  if (now >= endTime) {
+    window.close();
+    return;
   }
-}
 
-// Run the function when the page loads
-window.onload = closeTabAtMidnight;
+  // Otherwise, calculate the delay in milliseconds
+  const timeUntilEnd = endTime.getTime() - now.getTime();
+
+  // Schedule to close the tab exactly at the moment it expires
+  setTimeout(() => {
+    window.close();
+  }, timeUntilEnd);
+}
