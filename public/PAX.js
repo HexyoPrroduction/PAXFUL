@@ -150,6 +150,21 @@ function resetPuzzle() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("accept-btn");
+
+  if (localStorage.getItem("cookiesAccepted") === "true") {
+    banner.style.display = "none";
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    localStorage.setItem("cookiesAccepted", "true");
+    banner.style.display = "none";
+  });
+});
+
+
 // REFINEMENT NOTE: The functions `openPuzzle`, `closePuzzle`, `resetPuzzle` are exposed globally
 // because they are called by `onclick` attributes in PAX.html.
 // To avoid global scope pollution, these could be attached via event listeners if HTML is modified.
