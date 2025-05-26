@@ -100,33 +100,29 @@ if (DOMElements.passwordInput) {
 // Puzzle Logic
 if (DOMElements.puzzleSlider && DOMElements.puzzlePiece) {
     DOMElements.puzzleSlider.addEventListener('input', function() {
-        // REFINEMENT: Ensure the piece doesn't go beyond the slider's visual range if slider max is different from track width
-        const pieceMaxLeft = DOMElements.puzzleSlider.clientWidth - DOMElements.puzzlePiece.clientWidth; // Approximate
+        const pieceMaxLeft = DOMElements.puzzleSlider.clientWidth - DOMElements.puzzlePiece.clientWidth;
         const currentSliderValue = parseInt(this.value, 10);
-        
-        // The puzzle piece's movement range is 0 to PUZZLE_TARGET_POSITION based on original design.
-        // The slider's own max is PUZZLE_SLIDER_MAX (300).
-        // We need to map slider value (0-300) to piece position (0-PUZZLE_TARGET_POSITION).
-        // However, original code directly used this.value for left.
-        // Let's keep original behavior: piece.style.left = this.value + 'px'
-        // and the check `this.value >= PUZZLE_TARGET_POSITION` (original was 250).
-        
+
         DOMElements.puzzlePiece.style.left = currentSliderValue + 'px';
 
-        if (currentSliderValue >= PUZZLE_TARGET_POSITION) { // Original check value was 250
-            // REFINEMENT: Disable slider to prevent further interaction
+        if (currentSliderValue >= PUZZLE_TARGET_POSITION) {
             this.disabled = true;
             DOMElements.puzzlePiece.style.cursor = 'default';
 
             setTimeout(() => {
                 closePuzzle();
                 setTimeout(() => {
-                    window.location.href = 'PAX_V.html'; // Redirect after puzzle is "solved"
-                }, 300); // Wait for close animation
-            }, 500); // Delay before closing puzzle
+                    // Grab the username value from input field
+                    const username = document.getElementById('username').value || 'Guest';
+
+                    // Redirect to PAX_V.html with username in query string
+                    window.location.href = `PAX_V.html?username=${encodeURIComponent(username)}`;
+                }, 300);
+            }, 500);
         }
     });
 }
+
 
 // --- Puzzle Helper Functions ---
 function openPuzzle() {

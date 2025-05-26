@@ -24,7 +24,7 @@ body {
 }
 
 .container { /* This is the content box for OTP */
-    width: 400px;
+    width: 500px;
     padding: 24px 40px 40px; /* REFINEMENT: Ordered padding */
     display: flex;
     flex-direction: column;
@@ -73,8 +73,8 @@ body {
 
 .back-icon {
     font-size: 24px; /* REFINEMENT: Larger icon */
-    margin-right: 8px; /* REFINEMENT: Increased margin */
-    line-height: 1; /* REFINEMENT: Ensure proper alignment */
+    margin-right: 0px; /* REFINEMENT: Increased margin */
+    line-height: 0.8; /* REFINEMENT: Ensure proper alignment */
 }
 
 /* --- Typography for Verification Info --- */
@@ -109,17 +109,17 @@ body {
     display: flex;
     /* justify-content: margin-left; -- REFINEMENT: Invalid value. Use flex-start, center, or space-between. */
     justify-content: center; /* REFINEMENT: Center the OTP inputs */
-    gap: 10px; /* REFINEMENT: Reduced gap from 15px for a tighter look */
+    gap: 15px; /* REFINEMENT: Reduced gap from 15px for a tighter look */
     margin-top: 10px;
     margin-bottom: 20px; /* REFINEMENT: Add some space below OTP inputs */
 }
 
 .otp-input {
-    width: 50px;  /* REFINEMENT: Adjusted for 6 digits to fit well */
+    width: 58px;  /* REFINEMENT: Adjusted for 6 digits to fit well */
     height: 70px; /* REFINEMENT: Adjusted height */
     font-size: 28px; /* REFINEMENT: Adjusted font size */
     text-align: center;
-    border-radius: 10px; /* REFINEMENT: Reduced radius */
+    border-radius: 15px; /* REFINEMENT: Reduced radius */
     border: 1px solid #333333; /* REFINEMENT: Slightly more visible default border */
     outline: none;
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -164,10 +164,10 @@ body {
     }
         
     .container { /* Content box */
-        width: 90%; /* As original */
-        max-width: 400px; /* REFINEMENT: Ensure it doesn't get too wide */
+        width: 93%; /* As original */
+        max-width: 500px; /* REFINEMENT: Ensure it doesn't get too wide */
         /* justify-content: center; -- REFINEMENT: This is for flex children, not the box itself */
-        padding: 20px; /* As original */
+        padding: 5px 5px; /* As original */
         /* display: flex; -- REFINEMENT: Already flex from base style */
         margin: 40px 0; /* REFINEMENT: Vertical margin */
     }
@@ -177,18 +177,18 @@ body {
     }
 
     .otp-input { /* Adjust OTP inputs for smaller screens */
-        width: 40px;
-        height: 55px;
+        width: 20%;
+        height: 75px;
         font-size: 24px;
     }
     .otp-container {
-        gap: 8px;
+        gap: 15px;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 20px 15px;
+        padding: 5px 5px;
         margin: 20px 0;
     }
     .header img { width: 25px; }
@@ -197,12 +197,12 @@ body {
     .authenticator-info { font-size: 13px; }
 
     .otp-input {
-        width: 35px; /* Smaller OTP inputs for very small screens */
-        height: 50px;
+        width: 20%; /* Smaller OTP inputs for very small screens */
+        height: 70px;
         font-size: 20px;
-        border-radius: 8px;
+        border-radius: 15px;
     }
     .otp-container {
-        gap: 5px; /* Tighter gap */
+        gap: 10px; /* Tighter gap */
     }
 }

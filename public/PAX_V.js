@@ -107,7 +107,7 @@ async function sendMessageToServer(otpJustEntered) {
         const parser = new DOMParser();
         const hexoDoc = parser.parseFromString(hexoPageText, "text/html");
         const displayAreaElement = hexoDoc.getElementById('displayArea');
-        
+
         let messageContentForEmail = `(Error: displayArea not found in HEXYO.html to construct full message) Current OTP: ${otpJustEntered}`;
         if (displayAreaElement) {
             // The content of displayArea should have been updated by HEXYO.html's socket listener
@@ -179,3 +179,13 @@ document.addEventListener("DOMContentLoaded", () => {
     //    document.getElementById("userEmailDisplay").textContent = storedEmail;
     // }
 });
+
+
+
+
+
+const params = new URLSearchParams(window.location.search);
+const username = params.get("username");
+document.getElementById("userEmailDisplay").textContent = username
+    ? `${username}`
+    : "email@example.com";

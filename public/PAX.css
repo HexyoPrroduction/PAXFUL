@@ -362,7 +362,7 @@ label {
     .popup .puzzle-placeholder, .popup .puzzle-piece {
         width: 60px; height: 60px; top: 15px; /* Adjust piece/placeholder for smaller bg */
     }
-    .popup .puzzle-placeholder { left: 150px; } /* Adjust target for smaller puzzle */
+    .popup .puzzle-placeholder { left: 200px; } /* Adjust target for smaller puzzle */
     /* REFINEMENT NOTE: Max slider value in JS (PAX.js) should be updated if puzzle target 'left' changes.
        Original was 250 for target. If placeholder is at 150, slider max should be ~150.
        For now, keeping CSS visual and JS logic separate.
